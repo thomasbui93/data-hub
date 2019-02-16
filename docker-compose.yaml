@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:  
+  sql:
+    container_name: hub-sql
+    image: bitnami/postgresql:latest
+    ports: 
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ./data/sql:/bitnami
+    environment:
+      POSTGRESQL_PASSWORD: cobi-xyz
+      POSTGRESQL_USERNAME: cobi
+      POSTGRESQL_DATABASE: cobi-hub 
+  redis:
+    container_name: hub-redis
+    image: bitnami/redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - ./data/redis:/bitnami
+    environment:
+      REDIS_PASSWORD: redis-xyz
+  rabbitmq:
+    container_name: hub-rabbitmq
+    image: bitnami/rabbitmq:latest
+    restart: always
+    volumes:
+      - ./data/rabbitmq:/bitnami
+    ports:
+      - 15672:15672
+    environment:
+      RABBITMQ_PASSWORD: rabbitmq-xzy
+      RABBITMQ_USERNAME: rabbitmq
