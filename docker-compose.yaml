@@ -10,9 +10,9 @@ services:
     volumes:
       - ./data/sql:/bitnami
     environment:
-      POSTGRESQL_PASSWORD: cobi-xyz
+      POSTGRESQL_PASSWORD: pass
       POSTGRESQL_USERNAME: cobi
-      POSTGRESQL_DATABASE: cobi-hub 
+      POSTGRESQL_DATABASE: cobi-data
   redis:
     container_name: hub-redis
     image: bitnami/redis:latest
@@ -31,6 +31,21 @@ services:
       - ./data/rabbitmq:/bitnami
     ports:
       - 15672:15672
+      - 5672:5672
+    expose:
+      - 15672
+      - 5672
     environment:
-      RABBITMQ_PASSWORD: rabbitmq-xzy
-      RABBITMQ_USERNAME: rabbitmq
+      RABBITMQ_PASSWORD: cobi-pass
+      RABBITMQ_USERNAME: cobi
+  mongodb:
+    image: bitnami/mongodb:latest
+    restart: always
+    volumes:
+      - ./data/mongodb:/bitnami
+    ports:
+      - 27017:27017
+    environment:
+      MONGODB_USERNAME: cobi
+      MONGODB_PASSWORD: cobi-pass
+      MONGODB_DATABASE: cobi_data
